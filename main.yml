@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+- name: Deploy to Cloud Run
+  # You may pin to the exact commit or the version.
+  # uses: google-github-actions/deploy-cloudrun@ff8b38330cf81843db9cff366e335c34aa467c44
+  uses: google-github-actions/deploy-cloudrun@v0.3.0
+  with:
+    # Name of the container image to deploy (e.g. gcr.io/cloudrun/hello:latest).
+Required if not using a service YAML.
+    image: # optional
+    # ID of the service or fully qualified identifier for the service.
+Required if not using a service YAML.
+    service: # optional
+    # Region in which the resource can be found.
+    region: # optional, default is us-central1
+    # List of key-value pairs to set as environment variables in the format:
+KEY1=VALUE1,KEY2=VALUE2. All existing environment variables will be
+removed first.
+    env_vars: # optional
+    # YAML serivce description for the Cloud Run service.
+    metadata: # optional
+    # The GCP project ID. Overrides project ID set by credentials.
+    project_id: # optional
+    # Service account key to use for authentication. This should be the JSON
+formatted private key which can be exported from the Cloud Console. The
+value can be raw or base64-encoded. Required if not using a the
+setup-gcloud action with exported credentials.
+    credentials: # optional
